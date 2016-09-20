@@ -15,7 +15,6 @@ LOG_FORMAT = (
     '%(asctime)s - %(threadName)s - %(name)s - %(levelname)s - %(message)s')
 
 _template_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "templates")
-print("template_dir : " + _template_dir)
 env = Environment(loader=FileSystemLoader(_template_dir))
 
 
