@@ -39,7 +39,6 @@ def main(api_key=None, space_id=None, **kwargs):
                     issue['project'] = project
                     issue2md(issue)
                 page += 1
-                break
             else:
                 break
 
