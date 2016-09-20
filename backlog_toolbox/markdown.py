@@ -6,7 +6,7 @@ import datetime
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 
-from backlog import Backlog
+from backlog_toolbox.backlog import Backlog
 
 __author__ = 'Atsushi Nakajyo'
 
@@ -14,7 +14,9 @@ LOG = logging.getLogger('backlog.markdown')
 LOG_FORMAT = (
     '%(asctime)s - %(threadName)s - %(name)s - %(levelname)s - %(message)s')
 
-env = Environment(loader=FileSystemLoader('../templates'))
+_template_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "templates")
+print("template_dir : " + _template_dir)
+env = Environment(loader=FileSystemLoader(_template_dir))
 
 
 def main(api_key=None, space_id=None, **kwargs):
@@ -38,6 +40,7 @@ def main(api_key=None, space_id=None, **kwargs):
                     issue['project'] = project
                     issue2md(issue)
                 page += 1
+                break
             else:
                 break
 
