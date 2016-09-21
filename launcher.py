@@ -12,24 +12,31 @@ if __name__ == '__main__':
     parser.add_argument(
         "--backlog-api-key",
         dest="backlog_api_key",
-        default=os.environ.get("BACKLOG_API_KEY", None),
+        metavar="BACKLOG_API_KEY",
         required=True,
-        metavar="Backlog API Key")
+        help="Backlog API Key")
     parser.add_argument(
         "--backlog-space-id",
         dest="backlog_space_id",
-        default=os.environ.get("BACKLOG_SPACE_ID", None),
+        metavar="BACKLOG_SPACE_ID",
         required=True,
-        metavar="Backlog space id (https://{space_id}.backlog.jp/)")
+        help="Backlog space id (https://{space_id}.backlog.jp/)")
     parser.add_argument(
         "--project-key",
         dest="project_key",
         default=None,
         required=False,
-        metavar="project key name (https://{space_id}.backlog.jp/projects/{project_key})")
+        help="Set project-key (https://{space_id}.backlog.jp/projects/{project_key})")
+    parser.add_argument('-V', dest="loglevel", action="store_const",
+                        const=logging.INFO,
+                        help="log-level to INFO.")
+    parser.add_argument('-VV', dest="loglevel", action="store_const",
+                        const=logging.DEBUG,
+                        help="log-level to DEBUG.")
+    parser.set_defaults(loglevel=logging.WARN)
 
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=args.loglevel)
     markdown.main(api_key=args.backlog_api_key, space_id=args.backlog_space_id,
                   options={'project_key': args.project_key})
