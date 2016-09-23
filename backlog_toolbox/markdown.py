@@ -55,7 +55,7 @@ def issue2md(issue):
 
     prefix_date = datetime.datetime.strptime(issue.get('created'), "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m")
 
-    base_dir = "../output/{projectKey}/issues/{prefix_date}".format(
+    base_dir = os.getcwd() + "/output/{projectKey}/issues/{prefix_date}".format(
         projectKey=issue.get('project').get('projectKey'),
         prefix_date=prefix_date)
     if not os.path.exists(base_dir):
@@ -71,7 +71,7 @@ def wiki2md(wiki):
     template = env.get_template('wiki.jinja2')
     md = template.render(wiki)
 
-    base_dir = "../output/{projectKey}/wiki".format(projectKey=wiki.get('project').get('projectKey'))
+    base_dir = os.getcwd() + "/output/{projectKey}/wiki".format(projectKey=wiki.get('project').get('projectKey'))
     if not os.path.exists(base_dir):
         os.makedirs(base_dir)
 
